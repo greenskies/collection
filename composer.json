@@ -1,0 +1,16 @@
+{
+    "name": "greenskies/collection",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Greenskies\\": "src"
+        }
+    },
+    "require": {
+        "phpunit/phpunit": "^6.4"
+    },
+    "config": {
+        "sort-packages": true,
+        "bin-dir": "bin"
+    }
+}
