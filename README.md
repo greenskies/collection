@@ -1,0 +1,1 @@
+![build status](https://travis-ci.org/greenskies/collection.svg?branch=master)
