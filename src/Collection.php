@@ -154,4 +154,22 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
     {
         return count($this->items);
     }
+
+    public static function createFromFile($file)
+    {
+        $string = file_get_contents($file);
+        return static::createFromString($string);
+    }
+
+    public static function createFromString($string)
+    {
+        $items = preg_split( '/\r\n|\r|\n/', $string);
+        $array = [];
+        foreach ($items as $item) {
+            if ($item) {
+                $array[] = $item;
+            }
+        }
+        return new Collection($array);
+    }
 }
