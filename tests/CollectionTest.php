@@ -1,12 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: todd
- * Date: 12/11/17
- * Time: 9:05 PM
- */
+
+namespace Tests;
 
 use Greenskies\Collection;
+use Greensky\Tests\MockClass;
+use Greensky\Tests\SubMockClass;
+use Greensky\Tests\WrongMockClass;
 
 class CollectionTest extends \PHPUnit\Framework\TestCase
 {
@@ -38,5 +37,39 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
         $collection = Collection::createFromFile('./tests/fixtures/info.log');
 
         $this->assertEquals(2, count($collection));
+    }
+
+    public function testCreateClassCollection()
+    {
+        $collection = new Collection(['class'], 'Greensky\Tests\MockClass');
+        $className = get_class($collection[0]);
+        $this->assertEquals('Greensky\Tests\MockClass', $className);
+    }
+
+    public function testInsertIntoClassCollection()
+    {
+        $collection = new Collection(['class'], 'Greensky\Tests\MockClass');
+        $insertItem = new MockClass();
+        $collection[] = $insertItem;
+        $className = get_class($collection[1]);
+        $this->assertEquals('Greensky\Tests\MockClass', $className);
+    }
+
+    public function testCantInsertWrongClassIntoCollection()
+    {
+        $collection = new Collection(['class'], 'Greensky\Tests\MockClass');
+        $insertItem = new WrongMockClass();
+        $this->expectExceptionMessage('Wrong class for collection');
+        $collection[] = $insertItem;
+
+    }
+
+    public function testCanInsertChildClassIntoCollection()
+    {
+        $collection = new Collection(['class'], 'Greensky\Tests\MockClass');
+        $insertItem = new SubMockClass();
+        $collection[] = $insertItem;
+        $className = get_class($collection[1]);
+        $this->assertEquals('Greensky\Tests\SubMockClass', $className);
     }
 }

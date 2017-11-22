@@ -8,15 +8,36 @@
 
 namespace Greenskies;
 
+use Greenskies\Exception\CollectionException;
+
 class Collection implements \Iterator, \Countable, \ArrayAccess
 {
     private $items;
     private $position = 0;
+    private $className = null;
 
-    public function __construct(array $items = null)
+    public function __construct(array $items = null, $className = null)
     {
+        $this->className = $className;
+        foreach ($items as &$item) {
+            $item = $this->createElement($item);
+        }
         $this->items = $items;
         $this->position = 0;
+    }
+
+    protected function createElement($item)
+    {
+        if ($this->className) {
+            if (is_object($item)) {
+                if (!is_a($item, $this->className)) {
+                    throw new CollectionException("Wrong class for collection");
+                }
+            } else {
+                $item = new $this->className($item);
+            }
+        }
+        return $item;
     }
 
     /**
@@ -120,6 +141,7 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      */
     public function offsetSet($offset, $value)
     {
+        $value = $this->createElement($value);
         if (is_null($offset)) {
             $this->items[] = $value;
         } else {
@@ -161,7 +183,7 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
         return static::createFromString($string);
     }
 
-    public static function createFromString($string)
+    public static function createFromString($string, $className = null)
     {
         $items = preg_split( '/\r\n|\r|\n/', $string);
         $array = [];
@@ -170,6 +192,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
                 $array[] = $item;
             }
         }
-        return new Collection($array);
+        return new Collection($array, $className);
     }
 }
