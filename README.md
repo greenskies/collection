@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7243485e70584556865e33c8846e1b80)](https://app.codacy.com/app/eidsonator/collection?utm_source=github.com&utm_medium=referral&utm_content=greenskies/collection&utm_campaign=Badge_Grade_Dashboard)
 [![build status](https://travis-ci.org/greenskies/collection.svg?branch=master)](https://travis-ci.org/greenskies/collection.svg?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/greenskies/collection/badge.svg?branch=master)](https://coveralls.io/github/greenskies/collection?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/greenskies/collection/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/greenskies/collection/?branch=master)
