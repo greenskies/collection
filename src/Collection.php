@@ -194,4 +194,10 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
         }
         return new Collection($array, $className);
     }
+
+    public function push($item): self
+    {
+        $this->items[] = $item;
+        return $this;
+    }
 }
