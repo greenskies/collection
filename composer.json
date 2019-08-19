@@ -1,5 +1,6 @@
 {
     "name": "greenskies/collection",
+    "description": "Create an iterable collection of objects",
     "type": "library",
     "autoload": {
         "psr-4": {
