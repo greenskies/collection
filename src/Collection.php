@@ -200,4 +200,13 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
         $this->items[] = $item;
         return $this;
     }
+
+    public function toArray(): array
+    {
+        $array = [];
+        foreach ($this as $item) {
+            $array[] = $item;
+        }
+        return $array;
+    }
 }
